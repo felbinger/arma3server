@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # everyday at 00:00 UTC
+  push:
+    branches: [ master ]
+    tags: [ 'v*' ]
+  pull_request:
+
+env:
+  IMAGE_NAME: felbinger/arma3server
+  DOCKER_PLATFORMS: linux/amd64 #,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          tag-edge: true
+          images: |
+            ghcr.io/${{ env.IMAGE_NAME }}
+          tag-semver: |
+            {{version}}
+            {{major}}.{{minor}}
+      - uses: docker/setup-qemu-action@v1
+      - uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        if: github.event_name != 'pull_request'
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GH_PAT_PACKAGES }}
+
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: app
+          file: app/Dockerfile
+          platforms: ${{ env.DOCKER_PLATFORMS }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+      - name: Check manifest
+        run: |
+          docker buildx imagetools inspect ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.docker_meta.outputs.version }}
