@@ -12,5 +12,6 @@ RUN dpkg --add-architecture i386 \
 # add custom entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+ENTRYPOINT /entrypoint.sh
 
 USER linuxgsm
