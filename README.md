@@ -56,8 +56,8 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
     
     # adjust extdb2 configuration
     sed -i 's/^IP = 127.0.0.1/IP = mariadb/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
-    sed -i 's/^Username = changeme/Username = exile/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
-    sed -i 's/^Password = /Password = exile/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
+    sed -i 's/^Username = changeme/Username = arma3/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
+    sed -i 's/^Password = /Password = S3cr3T/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
 
     # arma 3 server configs
     mv /srv/arma3/serverfiles/@ExileServer/basic.cfg /srv/arma3/serverfiles/cfg/arma3server.network.cfg
