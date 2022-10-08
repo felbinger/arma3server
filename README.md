@@ -35,9 +35,16 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
         volumes:
           - "/srv/arma3-mariadb:/var/lib/mysql"
     ```
-    
-3. Start the arma3 container (`docker compose up -d arma3`) to perform the installation.
-4. Add your mods to `/srv/arma3/serverfiles/`:
+
+3. Adjust permission for `/srv/arma3`:
+    ```shell
+    mkdir /srv/arma3
+    chown 1000:1000 /srv/arma3
+    ```
+
+4. Start the arma3 container (`docker compose up -d arma3`) to perform the installation.
+
+5. Add your mods to `/srv/arma3/serverfiles/`:
     ```shell
     cd /srv/arma3/serverfiles/
 
@@ -73,5 +80,7 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
     rm -r /srv/arma3/serverfiles/Arma\ 3\ Server/
     rm -r /srv/arma3/serverfiles/MySQL
     ```
-5. Restart the arma3 container to start the server (`docker compose down && docker compose up -d`)
-6. Debug your way through using `docker compose exec arma3 arma3server console`
+
+6. Restart the arma3 container to start the server (`docker compose down && docker compose up -d`)
+
+7. Debug your way through using `docker compose exec arma3 arma3server console`
