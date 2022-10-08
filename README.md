@@ -24,5 +24,5 @@ services:
       - '2305:2305/udp'    # old Voice over Network
       - '2306:2306/udp'    # BattleEye
     volumes:
-      - '/srv/arma3:/home/lgsm'
+      - '/srv/arma3:/home/linuxgsm'
 ```
