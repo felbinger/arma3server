@@ -66,6 +66,8 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
     sed -i 's/^Username = changeme/Username = arma3/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
     sed -i 's/^Password = /Password = S3cr3T/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
 
+    chmod +x /srv/arma3/serverfiles/@ExileServer/extDB2.so
+
     # arma 3 server configs
     mv /srv/arma3/serverfiles/@ExileServer/basic.cfg /srv/arma3/serverfiles/cfg/arma3server.network.cfg
     mv /srv/arma3/serverfiles/@ExileServer/config.cfg /srv/arma3/serverfiles/cfg/arma3server.server.cfg 
@@ -75,6 +77,9 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
     
     mods="@Exile"
     servermods="@ExileServer"
+    
+    # extDB2 is only for 32-bit - think about changing to extDB3 which supports 64-bit!
+    executable="./arma3server"
     _EOF
 
     # delete remaining extracted files from exile-server
