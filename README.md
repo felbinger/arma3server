@@ -79,6 +79,9 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
     # delete remaining extracted files from exile-server
     rm -r /srv/arma3/serverfiles/Arma\ 3\ Server/
     rm -r /srv/arma3/serverfiles/MySQL
+    
+    # adjust permissions
+    chown -R 1000:1000 /srv/arma3
     ```
 
 6. Restart the arma3 container to start the server (`docker compose down && docker compose up -d`)
