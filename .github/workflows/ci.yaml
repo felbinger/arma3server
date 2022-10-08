@@ -9,7 +9,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: an2ic3/arma3server
+  IMAGE_NAME: felbinger/arma3server
   DOCKER_PLATFORMS: linux/amd64 #,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
 
 jobs:
