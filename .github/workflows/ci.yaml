@@ -6,10 +6,15 @@ on:
     tags: [ 'v*' ]
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   docker:
     runs-on: ubuntu-latest
-
+    permissions:
+      packages: write
     steps:
       - uses: actions/checkout@v3
 
