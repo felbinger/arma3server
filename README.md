@@ -3,7 +3,8 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
 
 ```yaml
   arma3:
-    image: arma3server
+    #image: ghcr.io/felbinger/arma3server
+    build: arma3server
     restart: always
     ports:
       - '2302:2302/udp'    # Arma 3 + voice over network
@@ -12,5 +13,5 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
       - '2305:2305/udp'    # old Voice over Network
       - '2306:2306/udp'    # BattleEye
     volumes:
-      - '/srv/games/arma3:/home/lgsm'
+      - '/srv/arma3:/home/lgsm'
 ```
