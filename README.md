@@ -71,7 +71,8 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
     mv /srv/arma3/serverfiles/@ExileServer/config.cfg /srv/arma3/serverfiles/cfg/arma3server.server.cfg 
 
     # add mods to server startup configuration
-    cat <<_EOF > /srv/arma3/lgsm/config-lgsm/arma3server/arma3server.cfg
+    cat <<_EOF >> /srv/arma3/lgsm/config-lgsm/arma3server/arma3server.cfg
+    
     mods="@Exile"
     servermods="@ExileServer"
     _EOF
