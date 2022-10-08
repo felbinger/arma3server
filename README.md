@@ -2,7 +2,7 @@
 Based on Linux Game Server Manager, with the required packages for extdb3...
 
 ## Setup Instructions (Example for Arma 3 Exile Mod)
-1. Install Docker
+1. Install Docker and unzip `apt install -y unzip`
 2. Add `docker-compose.yml` in `/home/admin/arma3`:
     ```yaml
     version: '3.9'
