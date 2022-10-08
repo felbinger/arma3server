@@ -14,6 +14,9 @@ services:
     #image: ghcr.io/felbinger/arma3server
     build: arma3server
     restart: always
+    environment:
+      - "STEAM_USER="
+      - "STEAM_PASS="
     ports:
       - '2302:2302/udp'    # Arma 3 + voice over network
       - '2303:2303/udp'    # Steam Query
