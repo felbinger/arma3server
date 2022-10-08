@@ -59,7 +59,7 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
     cp -r /srv/arma3/serverfiles/Arma\ 3\ Server/* /srv/arma3/serverfiles/
 
     # create tables on database using provided database schema
-    dc -f /root/docker-compose.yml exec -T mariadb mysql -uexile -pexile exile < /srv/arma3/serverfiles/MySQL/exile.sql
+    dc -f /root/docker-compose.yml exec -T mariadb mysql -uarma3 -pS3cr3T exile < /srv/arma3/serverfiles/MySQL/exile.sql
     
     # adjust extdb2 configuration
     sed -i 's/^IP = 127.0.0.1/IP = mariadb/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
