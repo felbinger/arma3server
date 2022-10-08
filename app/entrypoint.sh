@@ -4,6 +4,11 @@
 if [ -e /home/linuxgsm/arma3server ] && [ -e /home/linuxgsm/serverfiles ]; then
     ~/arma3server start
 else
+    mkdir -p /home/linuxgsm/lgsm/config-lgsm/arma3server
+    cat <<_EOF > /home/linuxgsm/lgsm/config-lgsm/arma3server/arma3server.cfg
+steamuser="${STEAM_USER}"
+steampass="${STEAM_PASS}"
+_EOF
     # start the installation process
     cp /linuxgsm.sh ~/linuxgsm.sh
     echo 5 | ~/linuxgsm.sh install
