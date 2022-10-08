@@ -1,7 +1,15 @@
 # Arma 3 Server
 Based on Linux Game Server Manager, with the required packages for extdb3...
 
+```shell
+git clone https://github.com/felbinger/arma3server.git /tmp
+mv /tmp/arma3server/app arma3server
+rm -rf /tmp/arma3server/
+```
 ```yaml
+version: '3.9'
+
+services:
   arma3:
     #image: ghcr.io/felbinger/arma3server
     build: arma3server
