@@ -1,7 +1,5 @@
 #!/bin/bash
 
-chown -R 1000:1000 /home/linuxgsm
-
 # start arma 3 server if already installed
 if [ -e /home/linuxgsm/arma3server ] && [ -e /home/linuxgsm/serverfiles ]; then
     ~/arma3server start
