@@ -100,4 +100,6 @@ Based on Linux Game Server Manager, with the required packages for extdb2 / extd
 * fix admin uids
 * repack server cfg pbo
 * adjust mission
+
+* disable verfiedSignatures in cfg/arma3server.server.cfg because this mod is not signed...
 * can be opened with F2
