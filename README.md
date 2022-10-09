@@ -1,7 +1,7 @@
 # Arma 3 Server
-Based on Linux Game Server Manager, with the required packages for extdb3...
+Based on Linux Game Server Manager, with the required packages for extdb2 / extdb3...
 
-## Setup Instructions (Example for Arma 3 Exile Mod)
+## Setup Instructions: Arma 3 Exile Mod (extDB2)
 1. Install Docker and unzip `apt install -y unzip`
 2. Add `docker-compose.yml` in `/home/admin/arma3`:
     ```yaml
@@ -24,8 +24,8 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
         volumes:
           - '/srv/arma3:/home/linuxgsm'
           
-      mariadb:
-        image: mariadb
+      mysql:
+        image: mysql:5.7
         restart: always
         environment:
           - "MARIADB_RANDOM_ROOT_PASSWORD=true"
@@ -47,26 +47,23 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
 5. Add your mods to `/srv/arma3/serverfiles/`:
     ```shell
     cd /srv/arma3/serverfiles/
-
-    # download and extract mods
-    wget http://bravofoxtrotcompany.com/exile/@Exile-1.0.4.zip
+    
     wget http://exilemod.com/ExileServer-1.0.4a.zip
-    unzip @Exile-1.0.4.zip 
     unzip ExileServer-1.0.4a.zip 
-    rm *.zip
+    rm ExileServer-1.0.4a.zip
+    
+    # TODO upload ExileMod from client which pulled it from steam workshop  
     
     # move the extracted files into the correct locations
     cp -r /srv/arma3/serverfiles/Arma\ 3\ Server/* /srv/arma3/serverfiles/
 
     # create tables on database using provided database schema
-    dc -f /root/docker-compose.yml exec -T mariadb mysql -uarma3 -pS3cr3T exile < /srv/arma3/serverfiles/MySQL/exile.sql
+    dc -f /root/docker-compose.yml exec -T mysql mysql -uarma3 -pS3cr3T exile < /srv/arma3/serverfiles/MySQL/exile.sql
     
     # adjust extdb2 configuration
-    sed -i 's/^IP = 127.0.0.1/IP = mariadb/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
+    sed -i 's/^IP = 127.0.0.1/IP = mysql/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
     sed -i 's/^Username = changeme/Username = arma3/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
     sed -i 's/^Password = /Password = S3cr3T/' /srv/arma3/serverfiles/@ExileServer/extdb-conf.ini
-
-    chmod +x /srv/arma3/serverfiles/@ExileServer/extDB2.so
 
     # arma 3 server configs
     mv /srv/arma3/serverfiles/@ExileServer/basic.cfg /srv/arma3/serverfiles/cfg/arma3server.network.cfg
@@ -75,6 +72,7 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
     # add mods to server startup configuration
     cat <<_EOF >> /srv/arma3/lgsm/config-lgsm/arma3server/arma3server.cfg
     
+    # mods="@Exile;@Extended_Base_Mod;@AdminToolkitServer"
     mods="@Exile"
     servermods="@ExileServer"
     
@@ -93,3 +91,13 @@ Based on Linux Game Server Manager, with the required packages for extdb3...
 6. Restart the arma3 container to start the server (`docker compose down && docker compose up -d`)
 
 7. Debug your way through using `docker compose exec arma3 arma3server console`
+
+### Extended Base Mod
+* see readme.html file in workshop content for installation instructions
+
+### AdminToolkit
+* unpack server cfg pbo
+* fix admin uids
+* repack server cfg pbo
+* adjust mission
+* can be opened with F2
