@@ -10,10 +10,6 @@ Based on Linux Game Server Manager, with the required packages for extdb2 / extd
         image: ghcr.io/felbinger/arma3server
         restart: always
         env_file: .arma3.env
-        environment:
-          # will be stored on filesystem (/srv/aram3/lgsm/config-lgsm/arma3server/arma3server.cfg) during installation
-          - ""
-          - ""
         ports:
           - '2302:2302/udp'    # Arma 3 + voice over network
           - '2303:2303/udp'    # Steam Query
@@ -26,6 +22,7 @@ Based on Linux Game Server Manager, with the required packages for extdb2 / extd
 
 3. Add `/home/admin/arma3/.arma3.env`:
     ```
+    # will also be stored on filesystem (/srv/aram3/lgsm/config-lgsm/arma3server/arma3server.cfg) during installation!
     STEAM_USER=steam_username
     STEAM_PASS=steam_password
     ```
