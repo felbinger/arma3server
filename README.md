@@ -5,8 +5,6 @@ Based on Linux Game Server Manager, with the required packages for extdb2 / extd
 1. Install docker 
 2. Add `/home/admin/arma3/docker-compose.yml` for the Arma 3 server
     ```yaml
-    version: '3.9'
-
     services:
       arma3:
         image: ghcr.io/felbinger/arma3server
@@ -50,8 +48,6 @@ Based on Linux Game Server Manager, with the required packages for extdb2 / extd
 ## MySQL Setup Instructions (for extDB2 / extDB3)
 1. Add `/home/admin/mysql/docker-compose.yml` for the database server:
     ```yaml
-    version: '3.9'
-
     services:
       mysql:
         image: mysql:5.7
